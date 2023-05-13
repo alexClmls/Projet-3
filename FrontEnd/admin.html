@@ -18,7 +18,7 @@
 		<ul>
 			<li><a href="index.html">projets</a></li>
 			<li><a href="#contact">contact</a></li>
-			<li><a href="login.html">login</a></li>
+			<li><a id="logout">logout</a></li>
 			<li><a href="#"><img src="./assets/icons/instagram.png" alt="Instagram"></a></li>
 		</ul>
 	</nav>
@@ -26,7 +26,10 @@
 <main>
 	<section id="introduction">
 		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="alo">
+			<img src="./assets/images/sophie-bluel.png" alt="sophie-bluel" class="sophieImg">
+			<div class="edit-intro">
+				<img src="./assets/icons/penToSquare.png" alt="pen-to-square"><button id= "edit-intro" class="edit"><a href="#" role="button">modifier</a></button>
+			</div>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -36,10 +39,20 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes projets</h2>
-		<div class="categories">
-			
+		<div class="portfolio-edit">
+			<h2>Mes projets</h2>
+			<div class="edit-works">
+				<img src="./assets/icons/penToSquare.png" alt="pen-to-square"><button id="edit-works" class="edit"><a href="#" role="button">modifier</a></button>
+			</div>
 		</div>
+		<dialog id="modal">
+		 	<div id="modal-cross">
+		 		<button id="cross"><a href="#" role="button"><img src="./assets/icons/cross.png" alt="cross"></a></button>
+		 	</div>
+		    <h3>Galerie photo</h3>
+		    <div id="modal-gallery">
+		    </div>
+	 	</dialog>
 		<div id="gallery">
 		</div>
 	</section>
@@ -65,5 +78,6 @@
 		</ul>
 	</nav>
 </footer>
+<script src="admin.js"></script>
 </body>
 </html>
