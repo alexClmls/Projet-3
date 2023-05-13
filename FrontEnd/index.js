@@ -41,6 +41,7 @@ function renderCategories(categories, works) {
 
 		const buttonFilter = document.createElement("button");
 		buttonFilter.innerText = category.name;
+		buttonFilter.className = "button-filter";
 		buttonFilter.addEventListener("click", function() {
 
 		document.getElementById("gallery").innerHTML = "";
@@ -56,6 +57,7 @@ function renderAll(works) {
 	
 	const buttonFilter = document.createElement("button");
 	buttonFilter.innerText = "Tous";
+	buttonFilter.className = "button-filter";
 	buttonFilter.addEventListener("click", function() {
 
 	document.getElementById("gallery").innerHTML = "";
