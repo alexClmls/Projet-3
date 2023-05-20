@@ -23,15 +23,14 @@ function renderWorks(works,id,domElementId) {
             imageElement.alt = work.title;
 
             const containers = document.getElementById(domElementId);
-            console.log(domElementId);
+           
             figure.appendChild(imageElement);
             figure.appendChild(nomElement);
             containers.appendChild(figure);
         }       
     }
-    console.log(worksId);           
+              
 }
-
 					
 function renderCategories(categories, works) {
 	
@@ -47,7 +46,6 @@ function renderCategories(categories, works) {
 		document.getElementById("gallery").innerHTML = "";
 		renderWorks(works,buttonId,"gallery");
 		})
-
 		const cat = document.querySelector(".categories");
 		cat.appendChild(buttonFilter);
 	}
@@ -63,11 +61,54 @@ function renderAll(works) {
 	document.getElementById("gallery").innerHTML = "";
 	renderWorks(works,0,"gallery");
 	})
-
 	const cat = document.querySelector(".categories");
 	cat.appendChild(buttonFilter);
 }
 					
+
+const btnLogin = document.getElementById("btnLogin");
+function displayNone(element) {
+	element.style.display = 'none';
+}
+
+function display(element) {
+	console.log(element)
+	element.style.display = 'null';
+}
+
+function logout(btnLogin) {
+    btnLogin.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        btnLogin.innerText = "login";
+        run();
+    });
+}
+
+
+function isLoggedIn(works, categories) {
+	let token = localStorage.getItem("token")|| "";
+	const btnLogin = document.getElementById("btnLogin");
+	const cat = document.querySelector(".categories");
+	if (token != "") {
+		logout(btnLogin);
+		displayNone(cat);
+		editPage();
+		modal();
+	    btnLogin.innerText = 'logout';
+	    console.log(token);
+	} else {
+		destroyEdit();
+		cat.style.display = "block";
+		renderAll(works);
+		renderCategories(categories, works);
+		console.log(token);
+		btnLogin.addEventListener("click", (e) => {
+	        e.preventDefault();
+	        location.replace("./login.html");
+	    });
+	} 
+}
 
 
 async function getCategories() {
@@ -84,15 +125,8 @@ const run = async()=>{
 	var works = await getWorks();
 
 	renderWorks(works,0,"gallery");
-	
-	if (document.URL.indexOf("index.html") >= 0) {
-		renderAll(works);
-		renderCategories(categories, works);
-	}
+	isLoggedIn(works, categories);
 }
 
 run()
 	
-				
-	
-

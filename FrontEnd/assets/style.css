@@ -55,8 +55,50 @@ body {
 }
 header {
 	display: flex;
+	flex-direction: column;
+}
+
+.editBanner {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	justify-content: center;
+	background-color: black;
+	margin: 0px;
+	height: 60px;
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	color: white;
+}
+
+.editBannerElement {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.publishBtn {
+	border-radius: 60px;
+	background-color: white;
+	height: 40px;
+	width: auto;
+	padding-left: 25px;
+	padding-right: 25px;
+	margin-left: 20px;
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 16px;
+	text-align: center;
+}
+
+#title_nav {
+	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin-top: 50px;
 }
 section {
 	margin: 50px 0
@@ -97,6 +139,11 @@ nav li a{
 	padding: 0 10px;
 	font-size: 16px;
 	font-weight: 400;
+	display: flex;
+}
+
+nav img {
+	width: 20px;
 }
 
 li:hover a{
@@ -153,14 +200,16 @@ li:hover a{
 }
 #gallery {
 	width: 100%;
+	justify-content: center;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 0fr 0fr 0fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
 
 #gallery img {
-	width: 100%;
+	width: 304px;
+	height: 405px;
 }
 
 #contact {
@@ -255,13 +304,13 @@ margin: auto;
 	font-family: Work Sans;
 }
 
-.edit-intro {
+#edit-intro {
 	margin-left: 57px;
    margin-top: 10px;
    display: flex;
 }
 
-.edit-works {
+#edit-works {
 	display: flex;
 	margin-bottom: 51px;
 	margin-left: 30px;

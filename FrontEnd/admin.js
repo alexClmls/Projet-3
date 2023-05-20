@@ -1,24 +1,48 @@
-let token = window.sessionStorage.getItem("token")|| ""; 
-console.log(token);
-/* le logout */
-const logout = document.querySelector("#logout");
-logout.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.sessionStorage.removeItem("userInformation");
-    window.location.replace("./index.html");
-});
-
-const editWorks = document.getElementById('edit-works');
-editWorks.addEventListener('click', () => modal.showModal(run2()));
-
-const modal = document.getElementById('modal');
-// modal.addEventListener('click', () => modal.close());
-
-const cross = document.getElementById('cross');
-cross.addEventListener('click', () => modal.close());
 
 // const modalGallery = document.getElementById('modal-gallery');
 // modalGallery.addEventListener('click', (event) => event.stopPropagation());
+const editWorks = document.getElementById("edit-works");
+const editIntro = document.getElementById("edit-intro");
+const banner = document.getElementById("editBanner");
+function editPage() {
+    banner.innerHTML = `
+                        <p class="editBannerElement"> 
+                            <img src="./assets/icons/penToSquareW.png" alt="pen-to-square">Mode Edition 
+                        </p>
+                        <button id="publishChange" class="publishBtn editBannerElement">publier les changements</button>
+                      `;
+    editIntro.innerHTML = `
+                            <img src="./assets/icons/penToSquare.png" alt="pen-to-square"><button id= "edit-intro-btn" class="edit">
+                            <a href="#" role="button">modifier</a></button>
+                          `;                      
+    editWorks.innerHTML = `
+                            <img src="./assets/icons/penToSquare.png" alt="pen-to-square"><button id="edit-works-btn" class="edit">
+                            <a href="#" role="button">modifier</a></button>       
+                          `;
+    display(banner);
+    display(editIntro);
+    display(editWorks);
+}
+
+function modal() {
+    const editWorksBtn = document.getElementById('edit-works-btn');
+    editWorksBtn.addEventListener('click', () => modal.showModal(run2()));
+
+    const modal = document.getElementById('modal');
+    // modal.addEventListener('click', () => modal.close());
+
+    const cross = document.getElementById('cross');
+    cross.addEventListener('click', () => modal.close());
+}
+
+function destroyEdit() {
+    banner.innerHTML = "";
+    editIntro.innerHTML = "";
+    editWorks.innerHTML = "";
+    displayNone(banner);
+    displayNone(editIntro);
+    displayNone(editWorks);
+}
 
 async function trashButton(works) {
     
