@@ -1,6 +1,8 @@
 function renderWorks(works,id,domElementId) {
     
-    var worksId = new Set();    
+    var worksId = new Set();
+    const containers = document.getElementById(domElementId);
+    containers.innerHTML = "";    
     
     for(let work of works) {
 
@@ -31,9 +33,10 @@ function renderWorks(works,id,domElementId) {
     }
               
 }
+
 					
 function renderCategories(categories, works) {
-	
+
 	for (let category of categories) {
 							
 		const buttonId = category.id
@@ -52,7 +55,8 @@ function renderCategories(categories, works) {
 }
 					
 function renderAll(works) {
-	
+	const cat = document.querySelector(".categories");
+	cat.innerHTML = "";
 	const buttonFilter = document.createElement("button");
 	buttonFilter.innerText = "Tous";
 	buttonFilter.className = "button-filter";
@@ -61,7 +65,6 @@ function renderAll(works) {
 	document.getElementById("gallery").innerHTML = "";
 	renderWorks(works,0,"gallery");
 	})
-	const cat = document.querySelector(".categories");
 	cat.appendChild(buttonFilter);
 }
 					
@@ -72,7 +75,6 @@ function displayNone(element) {
 }
 
 function display(element) {
-	console.log(element)
 	element.style.display = 'null';
 }
 
@@ -96,10 +98,10 @@ function isLoggedIn(works, categories) {
 		editPage();
 		modal();
 	    btnLogin.innerText = 'logout';
-	    console.log(token);
 	} else {
 		destroyEdit();
 		cat.style.display = "block";
+		renderWorks(works,0,"gallery");
 		renderAll(works);
 		renderCategories(categories, works);
 		console.log(token);
@@ -123,9 +125,9 @@ const run = async()=>{
 	
 	var categories = await getCategories();
 	var works = await getWorks();
-
 	renderWorks(works,0,"gallery");
 	isLoggedIn(works, categories);
+	console.log(1);
 }
 
 run()
