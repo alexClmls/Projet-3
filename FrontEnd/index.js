@@ -127,7 +127,6 @@ const run = async()=>{
 	var works = await getWorks();
 	renderWorks(works,0,"gallery");
 	isLoggedIn(works, categories);
-	console.log(1);
 }
 
 run()
