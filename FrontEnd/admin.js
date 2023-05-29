@@ -40,15 +40,19 @@ function modal() {
 
 function rmodal() {
     const modal = document.getElementById('modal');
-    modal.innerHTML = `
-                               <div id="modal-cross">
-                                    <button id="cross"><a href="#" role="button"><img src="./assets/icons/cross.png" alt="cross"></a></button>
-                                </div>
-                                <h3>Galerie photo</h3>
-                                <div id="modal-gallery">
-                                </div>
-                                <button id="addForm">Ajouter une photo</button>
-                                <button id="clear">Supprimer la galerie</button>  
+    modal.innerHTML = `         <div id= "modal-container">
+                                    <div id="modal-cross">
+                                        <button id="cross"><a href="#" role="button"><img src="./assets/icons/cross.png" alt="cross"></a></button>
+                                    </div>
+                                    <div class= "container">
+                                        <h3>Galerie photo</h3>
+                                        <div id="modal-gallery">
+                                        </div>
+                                        <hr class="hrLineAddWorkForm">
+                                        <input type="submit" value="Ajouter une photo" id="addForm">
+                                        <button id="clear">Supprimer la galerie</button>
+                                    </div>
+                                </div>      
                              `;                         
 }
 
@@ -85,26 +89,33 @@ function addForm() {
     const modal = document.getElementById('modal');
     const addForm = document.getElementById("addForm");
     addForm.addEventListener('click', function() {
-        modal.innerHTML = `
-                            <a href= "#' role="button id= "arrow-left">
-                               <i class="fa-light fa-arrow-left"></i>
-                            </a>   
-                            <div id="modal-cross">
-                                <button id="cross"><a href="#" role="button"><img src="./assets/icons/cross.png" alt="cross"></a></button>
-                            </div>
-                            <h3>Ajout photo</h3>
-                            <form id="addWorkForm" method= "post">
-                                <div class="dropzone" id="dropzone" >
-                                    <i class="fa-sharp fa-regular fa-image"></i>
-                                    <label class="addImgLabel"><p>+ Ajouter Photo </p><input type="file" accept="image/png, image/jpeg" name="image" id="imageInput" required> </input></label>
-                                    <p> jpg, png: 4mo max</p>
+        modal.innerHTML = `<div id= "modal-container">
+                                <div id= "headerForm">
+                                    <a href= "#' role="button id= "arrow-left">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                                       </svg>
+                                    </a>   
+                                    <button id="cross"><a href="#" role="button"><img src="./assets/icons/cross.png" alt="cross"></a></button>
+                                </div>    
+                                <div class= "container">
+                                    <h3>Ajout photo</h3>
+                                    <form id="addWorkForm" method= "post">
+                                        <div class="dropzone" id="dropzone" >
+                                            <img id= "sharp" src="./assets/icons/sharp.png" alt="montagne">
+                                            <label class="addImgLabel"><p>+ Ajouter Photo </p><input type="file" accept="image/png, image/jpeg" name="image" id="imageInput" required> </input></label>
+                                            <p> jpg, png: 4mo max</p>
+                                        </div>
+                                        <label for= "title">Titre</label>
+                                        <input class="addWorkTitle" name="title" required></input>
+                                        <label for= "category">Catégorie</label>
+                                        <select type="select" class="selectCategory" name="category" required>
+                                        </select>
+                                        <hr class="hrLineAddWorkForm">
+                                        <input type="submit" value="Valider"  id="confirmAddWork">
+                                    </form>
                                 </div>
-                                <input class="addWorkTitle" name="title" required></input>
-                                <select type="select" class="selectCategory" name="category" required>
-                                </select>
-                                <hr class="hrLineAddWorkForm">
-                                <input type="submit" value="Ajouter Photo"  id="confirmAddWork">
-                            </form>
+                            <div/>
                          `;
        genererCategories();
        addWork();
