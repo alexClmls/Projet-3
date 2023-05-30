@@ -5,8 +5,8 @@ const editIntro = document.getElementById("edit-intro");
 const banner = document.getElementById("editBanner");
 function editPage() {
     banner.innerHTML = `
-                        <p class="editBannerElement"> 
-                            <img src="./assets/icons/penToSquareW.png" alt="pen-to-square">Mode Edition 
+                        <p id= "edit-banner" class="editBannerElement"> 
+                            <img src="./assets/icons/penToSquareW.png" alt="pen-to-square">Mode édition 
                         </p>
                         <button id="publishChange" class="publishBtn editBannerElement">publier les changements</button>
                       `;
@@ -18,18 +18,12 @@ function editPage() {
                             <img src="./assets/icons/penToSquare.png" alt="pen-to-square"><button id="edit-works-btn" class="edit">
                             <a href="#" role="button">modifier</a></button>       
                           `;
-    display(banner);
-    display(editIntro);
-    display(editWorks);
 }
 
 function destroyEdit() {
-    banner.innerHTML = "";
-    editIntro.innerHTML = "";
-    editWorks.innerHTML = "";
-    displayNone(banner);
-    displayNone(editIntro);
-    displayNone(editWorks);
+    banner.remove();
+    editIntro.remove();
+    editWorks.remove();
 }
 
 function modal() {

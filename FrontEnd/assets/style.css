@@ -48,14 +48,24 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
+	/* max-width: 1440px; */
 	margin:auto;
-	font-family: 'Work Sans' ;
+	font-family: 'Work Sans';
 	font-size: 14px;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
 }
 header {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
+	align-items: center;
+}
+
+main, footer {
+	max-width: 950px;
+	width: 100%;
 }
 
 .editBanner {
@@ -79,6 +89,14 @@ header {
 	margin-bottom: auto;
 }
 
+#edit-banner {
+	display: flex;
+}
+
+.editBannerElement img {
+	margin-right: 9px;
+}
+
 .publishBtn {
 	border-radius: 60px;
 	background-color: white;
@@ -99,6 +117,8 @@ header {
 	display: flex;
 	justify-content: space-between;
 	margin-top: 50px;
+	max-width: 1140px;
+	width: 100%;
 }
 section {
 	margin: 50px 0
@@ -153,25 +173,42 @@ li:hover a{
 	display: flex;
 	align-items: center;
 	margin-bottom: 2em;
+	/* justify-content: end; */
 }
 #introduction figure {
-	flex: 1
+	flex: 1;
+	justify-content: flex-start;
+	display: flex;
+	flex-direction: column;
 }
 #introduction .sophieImg {
 	display: block;
-	margin: auto;
-	width: 80%;
+	/* margin: auto; */
+	width: 100%;
+	/* margin-right: -45px; */
 }
 
 #introduction article {
-	flex: 1
+	flex: 1;
+	/* justify-content: end; */
+	display: flex;
+	flex-direction: column;
+	/* padding-left: 169px; */
+	/* margin-left: 151px; */
 }
 #introduction h2 {
 	margin-bottom: 1em;
+	justify-content: end;
+	/* display: flex; */
+	margin-left: 72px;
 }
 
 #introduction p {
 	margin-bottom: 0.5em;
+	/* width: 404px; */
+	/* display: flex; */
+	margin-left: 71px;
+	/* justify-content: flex-end; */
 }
 #portfolio h2 {
 	text-align: center;
@@ -302,6 +339,11 @@ margin: auto;
 	margin: 2em 0 1em 0;
 }
 
+.link {
+	display: flex;
+	justify-content: center;
+}
+
 #logout {
 	cursor: pointer;
 }
@@ -314,9 +356,9 @@ margin: auto;
 }
 
 #edit-intro {
-	margin-left: 57px;
-   margin-top: 10px;
-   display: flex;
+	/* margin-left: 57px; */
+	margin-top: 10px;
+	display: flex;
 }
 
 #edit-works {
