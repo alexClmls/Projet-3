@@ -3,22 +3,53 @@ const token = localStorage.getItem("token")|| "";
 const editWorks = document.getElementById("edit-works");
 const editIntro = document.getElementById("edit-intro");
 const banner = document.getElementById("editBanner");
+
 function editPage() {
-    banner.innerHTML = `
-                        <p id= "edit-banner" class="editBannerElement"> 
-                            <img src="./assets/icons/penToSquareW.png" alt="pen-to-square">Mode édition 
-                        </p>
-                        <button id="publishChange" class="publishBtn editBannerElement">publier les changements</button>
-                      `;
-    editIntro.innerHTML = `
-                            <img src="./assets/icons/penToSquare.png" alt="pen-to-square"><button id= "edit-intro-btn" class="edit">
-                            <a href="#" role="button">modifier</a></button>
-                          `;                      
-    editWorks.innerHTML = `
-                            <img src="./assets/icons/penToSquare.png" alt="pen-to-square"><button id="edit-works-btn" class="edit">
-                            <a href="#" role="button">modifier</a></button>       
-                          `;
+    banner.innerHTML = "";
+    editIntro.innerHTML = "";                      
+    editWorks.innerHTML = "";
+    const editBanner = document.createElement("div");
+    editBanner.id = "edit-banner";
+    editBanner.className = "editBannerElement";
+   
+
+    const editImgHeader = document.createElement("img");
+    editImgHeader.src = "./assets/icons/penToSquareW.png"
+
+    const editTextBanner = document.createElement("p");
+    editTextBanner.innerText= "Mode édition";
+
+    const publish = document.createElement("button");
+    publish.id = "publishChange";
+    publish.className = "publishBtn editBannerElement";
+    publish.innerText = "publier les changements";
+
+    const editImg = document.createElement("img");
+    editImg.src = "./assets/icons/penToSquare.png";
+
+    const editImgs = document.createElement("img");
+    editImgs.src = "./assets/icons/penToSquare.png";
+    
+    const editIntroButton = document.createElement("button");
+    editIntroButton.className = "edit";
+    editIntroButton.innerText = "modifier";
+    editIntroButton.id = "edit-intro-btn";
+
+    const editWorksButton = document.createElement("button");
+    editWorksButton.className = "edit";
+    editWorksButton.innerText = "modifier";
+    editWorksButton.id = "edit-works-btn";
+
+    editBanner.appendChild(editImgHeader);
+    editBanner.appendChild(editTextBanner);
+    banner.appendChild(editBanner);
+    banner.appendChild(publish);
+    editIntro.appendChild(editImg);
+    editIntro.appendChild(editIntroButton);
+    editWorks.appendChild(editImgs);
+    editWorks.appendChild(editWorksButton);
 }
+
 
 function destroyEdit() {
     banner.remove();
@@ -28,26 +59,59 @@ function destroyEdit() {
 
 function modal() {
     showModals();
-    addForm();
-    crossClose();
 }
 
 function rmodal() {
     const modal = document.getElementById('modal');
-    modal.innerHTML = `         <div id= "modal-container">
-                                    <div id="modal-cross">
-                                        <button id="cross"><a href="#" role="button"><img src="./assets/icons/cross.png" alt="cross"></a></button>
-                                    </div>
-                                    <div class= "container">
-                                        <h3>Galerie photo</h3>
-                                        <div id="modal-gallery">
-                                        </div>
-                                        <hr class="hrLineAddWorkForm">
-                                        <input type="submit" value="Ajouter une photo" id="addForm">
-                                        <button id="clear">Supprimer la galerie</button>
-                                    </div>
-                                </div>      
-                             `;                         
+    modal.innerHTML = "";
+
+    const modalContainer = document.createElement("div");
+    modalContainer.id = "modal-container";
+
+    const modalCross = document.createElement("div");
+    modalCross.id = "modal-cross";
+
+    const cross = document.createElement("button");
+    cross.id = "cross";
+
+    const imgCross = document.createElement("img");
+    imgCross.src = "./assets/icons/cross.png";
+    imgCross.alt = "cross";
+
+    const container = document.createElement("div");
+    container.className = "container";
+
+    const titleForm = document.createElement("h3");
+    titleForm.innerText = "Galerie photo";
+
+    const modalGallery = document.createElement("div");
+    modalGallery.id = "modal-gallery";
+
+    const hr = document.createElement("hr");
+    hr.className = "hrLineAddWorkForm";
+
+    const input = document.createElement("input");
+    input.type = "submit";
+    input.value = "Ajouter une photo";
+    input.id = "addForm";
+
+    const clear = document.createElement("button");
+    clear.id = "clear";
+    clear.innerText = "Supprimer la galerie";
+
+    cross.appendChild(imgCross);
+    modalCross.appendChild(cross);
+    modalContainer.appendChild(modalCross);
+    container.appendChild(titleForm);
+    container.appendChild(modalGallery);
+    container.appendChild(hr);
+    container.appendChild(input);
+    container.appendChild(clear);
+    modalContainer.appendChild(container);
+    modal.appendChild(modalContainer);
+
+    addForm();
+    crossClose();
 }
 
 
@@ -80,41 +144,138 @@ function backModal() {
 }
 
 function addForm() {
-    const modal = document.getElementById('modal');
     const addForm = document.getElementById("addForm");
     addForm.addEventListener('click', function() {
-        modal.innerHTML = `<div id= "modal-container">
-                                <div id= "headerForm">
-                                    <a href= "#' role="button id= "arrow-left">
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                                       </svg>
-                                    </a>   
-                                    <button id="cross"><a href="#" role="button"><img src="./assets/icons/cross.png" alt="cross"></a></button>
-                                </div>    
-                                <div class= "container">
-                                    <h3>Ajout photo</h3>
-                                    <form id="addWorkForm" method= "post">
-                                        <div class="dropzone" id="dropzone" >
-                                            <img id= "sharp" src="./assets/icons/sharp.png" alt="montagne">
-                                            <label class="addImgLabel"><p>+ Ajouter Photo </p><input type="file" accept="image/png, image/jpeg" name="image" id="imageInput" required> </input></label>
-                                            <p> jpg, png: 4mo max</p>
-                                        </div>
-                                        <label for= "title">Titre</label>
-                                        <input class="addWorkTitle" name="title" required></input>
-                                        <label for= "category">Catégorie</label>
-                                        <select type="select" class="selectCategory" name="category" required>
-                                        </select>
-                                        <hr class="hrLineAddWorkForm">
-                                        <input type="submit" value="Valider"  id="confirmAddWork">
-                                    </form>
-                                </div>
-                            <div/>
-                         `;
-       genererCategories();
-       addWork();
-       backModal();
-       crossClose();
+        // modal.innerHTML = `<div id= "modal-container">
+        //                         <div id= "headerForm">
+        //                             <a href= "#' role="button id= "arrow-left">
+        //                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+        //                                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+        //                                </svg>
+        //                             </a>   
+        //                             <button id="cross"><a href="#" role="button"><img src="./assets/icons/cross.png" alt="cross"></a></button>
+        //                         </div>    
+        //                         <div class= "container">
+        //                             <h3>Ajout photo</h3>
+        //                             <form id="addWorkForm" method= "post">
+        //                                 <div class="dropzone" id="dropzone" >
+        //                                     <img id= "sharp" src="./assets/icons/sharp.png" alt="montagne">
+        //                                     <label class="addImgLabel"><p>+ Ajouter Photo </p><input type="file" accept="image/png, image/jpeg" name="image" id="imageInput" required> </input></label>
+        //                                     <p> jpg, png: 4mo max</p>
+        //                                 </div>
+        //                                 <label for= "title">Titre</label>
+        //                                 <input class="addWorkTitle" name="title" required></input>
+        //                                 <label for= "category">Catégorie</label>
+        //                                 <select type="select" class="selectCategory" name="category" required>
+        //                                 </select>
+        //                                 <hr class="hrLineAddWorkForm">
+        //                                 <input type="submit" value="Valider"  id="confirmAddWork">
+        //                             </form>
+        //                         </div>
+        //                     <div/>
+        //                  `;
+        const modal = document.getElementById('modal');
+        modal.innerHTML = "";
+
+        const modalContainer = document.createElement("div");
+        modalContainer.id = "modal-container";
+
+        const headerForm = document.createElement("div");
+        headerForm.id = "headerForm";
+
+        const leftArrow = document.createElement("img");
+        leftArrow.src = "./assets/icons/Arrow_Back.png";
+        leftArrow.id = "arrow-left";
+
+        const cross = document.createElement("button");
+        cross.id = "cross";
+
+        const imgCross = document.createElement("img");
+        imgCross.src = "./assets/icons/cross.png";
+        imgCross.alt = "cross";
+
+        const container = document.createElement("div");
+        container.className = "container";
+
+        const titleForm = document.createElement("h3");
+        titleForm.innerText = "Ajout photo";
+
+        const addWorkForm = document.createElement("form");
+        addWorkForm.id = "addWorkForm";
+        addWorkForm.method = "post";
+
+        const dropZone = document.createElement("div");
+        dropZone.id = "dropzone";
+
+        const imgDrop = document.createElement("img")
+        imgDrop.id = "sharp";
+        imgDrop.src = "./assets/icons/sharp.png";
+
+        const labelImg = document.createElement("label");
+        labelImg.className = "addImgLabel";
+
+        const pLabel = document.createElement("p");
+        pLabel.innerText = "+ Ajouter photo";
+
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/png, image/jpeg";
+        input.name = "image";
+        input.id = "imageInput";
+
+        const p = document.createElement("p");
+        p.innerText = "jpg, png: 4mo max";
+
+        const titleLabel = document.createElement("label");
+        titleLabel.for = "title"
+        titleLabel.innerText = "Titre";
+
+        const titleInput = document.createElement("input");
+        titleInput.className = "addWorkTitle";
+        titleInput.name = "title";
+
+        const catLabel = document.createElement("label");
+        catLabel.for = "category"
+        catLabel.innerText = "Catégorie";
+
+        const catSelect = document.createElement("select");
+        catSelect.type = "select"
+        catSelect.className = "selectCategory";
+        catSelect.name = "category"; 
+
+        const hr = document.createElement("hr");
+        hr.className = "hrLineAddWorkForm";
+
+        const submit = document.createElement("input");
+        submit.type = "submit";
+        submit.value = "Valider";
+        submit.id = "confirmAddWork";
+
+        cross.appendChild(imgCross);
+        headerForm.appendChild(leftArrow);
+        headerForm.appendChild(cross);
+        modalContainer.appendChild(headerForm);
+        container.appendChild(titleForm);
+        dropZone.appendChild(imgDrop);
+        labelImg.appendChild(pLabel);
+        labelImg.appendChild(input);
+        dropZone.appendChild(labelImg);
+        dropZone.appendChild(p);
+        addWorkForm.appendChild(dropZone);
+        addWorkForm.appendChild(titleLabel);
+        addWorkForm.appendChild(titleInput);
+        addWorkForm.appendChild(catLabel);
+        addWorkForm.appendChild(catSelect);
+        addWorkForm.appendChild(hr);
+        addWorkForm.appendChild(submit);
+        container.appendChild(addWorkForm);
+        modalContainer.appendChild(container);
+        modal.appendChild(modalContainer);               
+     
+        genererCategories();
+        addWork();
+        backModal();
+        crossClose();
     })
 }
 
@@ -240,6 +401,7 @@ function allTrash() {
 
 
 const run2 = async()=>{
+    rmodal();
     document.getElementById("modal-gallery").innerHTML = "";
     var works = await getWorks();
     var categories = await getCategories();
