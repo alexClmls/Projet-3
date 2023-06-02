@@ -37,6 +37,20 @@ function renderWorks(works,id,domElementId) {
 					
 function renderCategories(categories, works) {
 
+	const cat = document.getElementById("categories-container");
+	cat.innerHTML = "";
+	const subContainerCat = document.createElement("div");
+	subContainerCat.id = "categories";
+	const buttonAll = document.createElement("button");
+	buttonAll.innerText = "Tous";
+	buttonAll.className = "button-filter";
+	buttonAll.addEventListener("click", function() {
+
+	document.getElementById("gallery").innerHTML = "";
+	renderWorks(works,0,"gallery");
+	})
+	subContainerCat.appendChild(buttonAll);
+
 	for (let category of categories) {
 							
 		const buttonId = category.id
@@ -49,32 +63,35 @@ function renderCategories(categories, works) {
 		document.getElementById("gallery").innerHTML = "";
 		renderWorks(works,buttonId,"gallery");
 		})
-		const cat = document.querySelector(".categories");
-		cat.appendChild(buttonFilter);
+		subContainerCat.appendChild(buttonFilter);
 	}
+	cat.appendChild(subContainerCat);
 }
 					
-function renderAll(works) {
-	const cat = document.querySelector(".categories");
-	cat.innerHTML = "";
-	const buttonFilter = document.createElement("button");
-	buttonFilter.innerText = "Tous";
-	buttonFilter.className = "button-filter";
-	buttonFilter.addEventListener("click", function() {
+// function renderAll(works) {
+// 	const cat = document.querySelector(".categories");
+// 	cat.innerHTML = "";
+// 	const buttonFilter = document.createElement("button");
+// 	buttonFilter.innerText = "Tous";
+// 	buttonFilter.className = "button-filter";
+// 	buttonFilter.addEventListener("click", function() {
 
-	document.getElementById("gallery").innerHTML = "";
-	renderWorks(works,0,"gallery");
-	})
-	cat.appendChild(buttonFilter);
-}
+// 	document.getElementById("gallery").innerHTML = "";
+// 	renderWorks(works,0,"gallery");
+// 	})
+// 	cat.appendChild(buttonFilter);
+// }
 					
 
 const btnLogin = document.getElementById("btnLogin");
 function displayNone(element) {
-	element.style.display = 'none';
+	for (var i = 0; i < element.length; i++) {
+    	element[i].style.display = 'none';
+  }
 }
 
 function display(element) {
+
 	element.style.display = 'null';
 }
 
@@ -91,20 +108,18 @@ function logout(btnLogin) {
 function isLoggedIn(works, categories) {
 	let token = localStorage.getItem("token")|| "";
 	const btnLogin = document.getElementById("btnLogin");
-	const cat = document.querySelector(".categories");
+	const subContainerCat = document.getElementById("categories");
 	if (token != "") {
 		logout(btnLogin);
-		displayNone(cat);
+		// subContainerCat.remove();
 		editPage();
 		modal();
 	    btnLogin.innerText = 'logout';
 	} else {
 		destroyEdit();
-		cat.style.display = "block";
 		renderWorks(works,0,"gallery");
-		renderAll(works);
+		// renderAll(works);
 		renderCategories(categories, works);
-		console.log(token);
 		btnLogin.addEventListener("click", (e) => {
 	        e.preventDefault();
 	        location.replace("./login.html");

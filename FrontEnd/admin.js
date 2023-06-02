@@ -146,34 +146,7 @@ function backModal() {
 function addForm() {
     const addForm = document.getElementById("addForm");
     addForm.addEventListener('click', function() {
-        // modal.innerHTML = `<div id= "modal-container">
-        //                         <div id= "headerForm">
-        //                             <a href= "#' role="button id= "arrow-left">
-        //                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-        //                                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-        //                                </svg>
-        //                             </a>   
-        //                             <button id="cross"><a href="#" role="button"><img src="./assets/icons/cross.png" alt="cross"></a></button>
-        //                         </div>    
-        //                         <div class= "container">
-        //                             <h3>Ajout photo</h3>
-        //                             <form id="addWorkForm" method= "post">
-        //                                 <div class="dropzone" id="dropzone" >
-        //                                     <img id= "sharp" src="./assets/icons/sharp.png" alt="montagne">
-        //                                     <label class="addImgLabel"><p>+ Ajouter Photo </p><input type="file" accept="image/png, image/jpeg" name="image" id="imageInput" required> </input></label>
-        //                                     <p> jpg, png: 4mo max</p>
-        //                                 </div>
-        //                                 <label for= "title">Titre</label>
-        //                                 <input class="addWorkTitle" name="title" required></input>
-        //                                 <label for= "category">Catégorie</label>
-        //                                 <select type="select" class="selectCategory" name="category" required>
-        //                                 </select>
-        //                                 <hr class="hrLineAddWorkForm">
-        //                                 <input type="submit" value="Valider"  id="confirmAddWork">
-        //                             </form>
-        //                         </div>
-        //                     <div/>
-        //                  `;
+        
         const modal = document.getElementById('modal');
         modal.innerHTML = "";
 
@@ -222,6 +195,17 @@ function addForm() {
         input.accept = "image/png, image/jpeg";
         input.name = "image";
         input.id = "imageInput";
+        // input.onchange = previewImg();
+        input.addEventListener("change", (e) => {
+            const image = new Image();
+            image.id = "image";
+            image.src = URL.createObjectURL(e.target.files[0]);
+            displayNone(dropZone.childNodes);
+            dropZone.appendChild(image);
+        })
+        input.required = "required";
+
+
 
         const p = document.createElement("p");
         p.innerText = "jpg, png: 4mo max";
@@ -233,6 +217,7 @@ function addForm() {
         const titleInput = document.createElement("input");
         titleInput.className = "addWorkTitle";
         titleInput.name = "title";
+        titleInput.required = "required";
 
         const catLabel = document.createElement("label");
         catLabel.for = "category"
@@ -271,12 +256,18 @@ function addForm() {
         container.appendChild(addWorkForm);
         modalContainer.appendChild(container);
         modal.appendChild(modalContainer);               
-     
+    
         genererCategories();
         addWork();
         backModal();
         crossClose();
     })
+}
+
+function previewImg() {
+    const file = document.getElementById("imageInput");
+    console.log(file);
+
 }
 
 async function genererCategories() {
@@ -331,7 +322,7 @@ async function trashUpdate() {
 
 function trashButton() {
     
-       let token = localStorage.getItem("token")|| "";
+        let token = localStorage.getItem("token")|| "";
         let figures = document.getElementById('modal-gallery').childNodes;
         
         for (figure of figures) {
