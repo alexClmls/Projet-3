@@ -1,6 +1,5 @@
 function renderWorks(works,id,domElementId) {
     
-    var worksId = new Set();
     const containers = document.getElementById(domElementId);
     containers.innerHTML = "";    
     
@@ -10,9 +9,7 @@ function renderWorks(works,id,domElementId) {
         if (work.categoryId == id || id ==0) {
             
             const figure = document.createElement("figure");
-            figure.getAttribute("id");
             figure.id = work.id;
-            worksId.add(work.id);
 
             const nomElement = document.createElement("figcaption");
             nomElement.innerText = work.title;
@@ -37,10 +34,10 @@ function renderWorks(works,id,domElementId) {
 					
 function renderCategories(categories, works) {
 
-	const cat = document.getElementById("categories-container");
+	const cat = document.getElementById("categories");
 	cat.innerHTML = "";
-	const subContainerCat = document.createElement("div");
-	subContainerCat.id = "categories";
+	const catContainer = document.createElement("div");
+	catContainer.id = "categories-container";
 	const buttonAll = document.createElement("button");
 	buttonAll.innerText = "Tous";
 	buttonAll.className = "button-filter";
@@ -49,7 +46,7 @@ function renderCategories(categories, works) {
 	document.getElementById("gallery").innerHTML = "";
 	renderWorks(works,0,"gallery");
 	})
-	subContainerCat.appendChild(buttonAll);
+	catContainer.appendChild(buttonAll);
 
 	for (let category of categories) {
 							
@@ -63,36 +60,18 @@ function renderCategories(categories, works) {
 		document.getElementById("gallery").innerHTML = "";
 		renderWorks(works,buttonId,"gallery");
 		})
-		subContainerCat.appendChild(buttonFilter);
+		catContainer.appendChild(buttonFilter);
 	}
-	cat.appendChild(subContainerCat);
+	cat.appendChild(catContainer);
 }
-					
-// function renderAll(works) {
-// 	const cat = document.querySelector(".categories");
-// 	cat.innerHTML = "";
-// 	const buttonFilter = document.createElement("button");
-// 	buttonFilter.innerText = "Tous";
-// 	buttonFilter.className = "button-filter";
-// 	buttonFilter.addEventListener("click", function() {
-
-// 	document.getElementById("gallery").innerHTML = "";
-// 	renderWorks(works,0,"gallery");
-// 	})
-// 	cat.appendChild(buttonFilter);
-// }
-					
+									
 
 const btnLogin = document.getElementById("btnLogin");
+
 function displayNone(element) {
 	for (var i = 0; i < element.length; i++) {
     	element[i].style.display = 'none';
   }
-}
-
-function display(element) {
-
-	element.style.display = 'null';
 }
 
 function logout(btnLogin) {
@@ -105,20 +84,18 @@ function logout(btnLogin) {
 }
 
 
-function isLoggedIn(works, categories) {
+function isItLogged(works, categories) {
 	let token = localStorage.getItem("token")|| "";
 	const btnLogin = document.getElementById("btnLogin");
-	const subContainerCat = document.getElementById("categories");
 	if (token != "") {
+		renderWorks(works,0,"gallery");
 		logout(btnLogin);
-		// subContainerCat.remove();
 		editPage();
-		modal();
+		showModals();
 	    btnLogin.innerText = 'logout';
 	} else {
 		destroyEdit();
 		renderWorks(works,0,"gallery");
-		// renderAll(works);
 		renderCategories(categories, works);
 		btnLogin.addEventListener("click", (e) => {
 	        e.preventDefault();
@@ -140,8 +117,7 @@ const run = async()=>{
 	
 	var categories = await getCategories();
 	var works = await getWorks();
-	renderWorks(works,0,"gallery");
-	isLoggedIn(works, categories);
+	isItLogged(works, categories);
 }
 
 run()

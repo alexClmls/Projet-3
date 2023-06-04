@@ -1,6 +1,8 @@
 /* Le Log In */  
 const submit = document.getElementById("submit");
 const errorInformation = document.getElementById("errorInformation");
+errorInformation.className = "error-msg";
+errorInformation.id = "error-info"
 	
 submit.addEventListener("click", (e) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ submit.addEventListener("click", (e) => {
            return authResponse.json();
         } else {
            errorInformation.innerHTML = "Erreur dans l'identifiant ou le mot de passe";
+           errorInformation.style.display = "block";
            return Promise.reject();
         }
     })
