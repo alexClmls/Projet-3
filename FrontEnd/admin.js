@@ -336,13 +336,13 @@ function addForm() {
         addWorkForm.appendChild(dropZone);
         addWorkForm.appendChild(titleLabel);
         titleLabel.appendChild(starTitle);
-        labelImg.appendChild(errorTitle);
         addWorkForm.appendChild(titleInput);
         addWorkForm.appendChild(catLabel);
         addWorkForm.appendChild(catSelect);
         addWorkForm.appendChild(hr);
         addWorkForm.appendChild(submit);
         container.appendChild(addWorkForm);
+        container.appendChild(errorTitle);
         modalContainer.appendChild(container);
         modal.appendChild(modalContainer);               
     
