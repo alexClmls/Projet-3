@@ -1,11 +1,12 @@
+// fonction qui crée une gallerie des projets dans le container de notre choix.
 function renderWorks(works,id,domElementId) {
     
     const containers = document.getElementById(domElementId);
     containers.innerHTML = "";    
-    
+    //boucle sur les projets
     for(let work of works) {
 
-
+    	//conditions pour afficher que les projets selon leurs catégories ou tout afficher 
         if (work.categoryId == id || id ==0) {
             
             const figure = document.createElement("figure");
@@ -31,7 +32,7 @@ function renderWorks(works,id,domElementId) {
               
 }
 
-					
+//fonction pour afficher les boutons filtres par catégorie					
 function renderCategories(categories, works) {
 
 	const cat = document.getElementById("categories");
@@ -42,12 +43,12 @@ function renderCategories(categories, works) {
 	buttonAll.innerText = "Tous";
 	buttonAll.className = "button-filter";
 	buttonAll.addEventListener("click", function() {
-
+	// bouton qui va afficher tous les projets
 	document.getElementById("gallery").innerHTML = "";
 	renderWorks(works,0,"gallery");
 	})
 	catContainer.appendChild(buttonAll);
-
+	//boucle sur les catégories pour créer un bouton par catégorie
 	for (let category of categories) {
 							
 		const buttonId = category.id
@@ -56,7 +57,8 @@ function renderCategories(categories, works) {
 		buttonFilter.innerText = category.name;
 		buttonFilter.className = "button-filter";
 		buttonFilter.addEventListener("click", function() {
-
+		//chaque bouton va appeler la fonction renderWorks, 
+		//pour afficher les projets du même id que la catégorie.
 		document.getElementById("gallery").innerHTML = "";
 		renderWorks(works,buttonId,"gallery");
 		})
@@ -73,8 +75,10 @@ function displayNone(element) {
     	element[i].style.display = 'none';
   }
 }
-
+//fonction qui affiche logout et qui remove le token 
+//pour ensuite appeler renderMainOrEdit pour savoir quoi afficher
 function logout(btnLogin) {
+	btnLogin.innerText = 'logout';
     btnLogin.addEventListener("click", (e) => {
         e.preventDefault();
         localStorage.removeItem("token");
@@ -83,8 +87,8 @@ function logout(btnLogin) {
     });
 }
 
-
-function isItLogged(works, categories) {
+//fonction qui affiche la page de présentation ou l'edit page selon si on a le token.
+function renderMainOrEdit(works, categories) {
 	let token = localStorage.getItem("token")|| "";
 	const btnLogin = document.getElementById("btnLogin");
 	if (token != "") {
@@ -92,7 +96,6 @@ function isItLogged(works, categories) {
 		logout(btnLogin);
 		editPage();
 		showModals();
-	    btnLogin.innerText = 'logout';
 	} else {
 		destroyEdit();
 		renderWorks(works,0,"gallery");
@@ -104,11 +107,11 @@ function isItLogged(works, categories) {
 	} 
 }
 
-
+//fonction qui récupère les catégories.
 async function getCategories() {
 	return fetch("http://localhost:5678/api/categories").then(data => data.json())
 }
-
+//fonction qui récupère les projets.
 async function getWorks() {
 	return fetch("http://localhost:5678/api/works").then(data => data.json())
 }
@@ -117,7 +120,7 @@ const run = async()=>{
 	
 	var categories = await getCategories();
 	var works = await getWorks();
-	isItLogged(works, categories);
+	renderMainOrEdit(works, categories);
 }
 
 run()

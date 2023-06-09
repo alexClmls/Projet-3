@@ -525,6 +525,7 @@ h3 {
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding-left: 16px;
 }
 
 label {
@@ -572,7 +573,7 @@ label {
 	height: 169px;
 }
 
-#starImg, #starTitle {
+#starImg, #starTitle, #starCat {
   color: red;
   display: none;
 }
@@ -584,27 +585,30 @@ label {
 	border-color: black;
 	color: white;
 	border-radius: 10px;
-	padding: 10px;
+	padding: 7px;
 	width: max-content;
 	margin-left: auto;
   margin-right: auto;
 }
 
-#error-title, #error-img {
+#error-title, #error-img, #error-cat {
 	position: absolute;
 	display: none;
 }
 
 #error-title {
-	bottom: 29%;
+	bottom: 31.8%;
 }
 
 #error-img {
-	bottom: 45.5%;
+	bottom: 48%;
+}
+
+#error-cat {
+	bottom: 16%;
 }
 
 #error-info {
 	display: none;
-  margin-bottom: 10px;
-  margin-top: 20px;
+  margin-top: 30px;
 }

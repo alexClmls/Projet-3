@@ -4,7 +4,7 @@ const editWorks = document.getElementById("edit-works");
 const editIntro = document.getElementById("edit-intro");
 const banner = document.getElementById("banner");
 const modal = document.getElementById('modal');
-
+// création de la page en mode édition
 function editPage() {
     banner.innerHTML = "";
     editIntro.innerHTML = "";                      
@@ -65,7 +65,7 @@ function showModals() {
 
     });
 }
-
+//création de la modale
 function rModal() {
 
     modal.innerHTML = "";
@@ -118,7 +118,7 @@ function rModal() {
     addForm();
     crossClose();
 }
-
+//fonction pour afficher les icones trash et supprimer au click un projet
 function trashButton() {
     
         let token = localStorage.getItem("token")|| "";
@@ -158,7 +158,7 @@ function trashButton() {
             figure.appendChild(trashButton);
         }
 }
-
+//supprime tous les projets
 function allTrash() {
     let figures = document.getElementById('modal-gallery').childNodes;
     let allClear = document.getElementById("clear");
@@ -203,11 +203,10 @@ function backModal() {
     let aLeft = document.getElementById("arrow-left");
     aLeft.addEventListener("click", (e) => {
         e.preventDefault();
-        rModal();
         run2(); 
     }) 
 }
-
+//création du form de la modale
 function addForm() {
     const addForm = document.getElementById("add-form");
     addForm.addEventListener('click', function() {
@@ -307,6 +306,15 @@ function addForm() {
         catLabel.id = "cat-label";
         catLabel.innerText = "Catégorie";
 
+        let starCat = document.createElement("p");
+        starCat.id = "starCat";
+        starCat.innerText = "*";
+
+        let errorCat = document.createElement("p");
+        errorCat.id = "error-cat";
+        errorCat.innerText = "Veuillez choisir une catégorie."
+        errorCat.className = "error-msg";
+
         const catSelect = document.createElement("select");
         catSelect.type = "select"
         catSelect.id = "select-category";
@@ -338,11 +346,13 @@ function addForm() {
         titleLabel.appendChild(starTitle);
         addWorkForm.appendChild(titleInput);
         addWorkForm.appendChild(catLabel);
+        catLabel.appendChild(starCat);
         addWorkForm.appendChild(catSelect);
         addWorkForm.appendChild(hr);
         addWorkForm.appendChild(submit);
         container.appendChild(addWorkForm);
         container.appendChild(errorTitle);
+        container.appendChild(errorCat);
         modalContainer.appendChild(container);
         modal.appendChild(modalContainer);               
     
@@ -353,11 +363,13 @@ function addForm() {
     })
 }
 
-
+//
 async function genererCategories() {
   const getCat = await getCategories();
   const selectCategory = document.getElementById('select-category');
   selectCategory.innerHTML = "";
+  const voidOpt = document.createElement("option");
+  selectCategory.appendChild(voidOpt);
   for (cat of getCat) {
     const categorie = document.createElement('option');
     categorie.className = `select-category-element`;
@@ -367,7 +379,7 @@ async function genererCategories() {
     selectCategory.appendChild(categorie);
   }
 }
-
+//récupère le nouveau projet et l'envoi dans la bdd
 function addWork() {
     let confirm = document.getElementById("confirm-add-work");
     confirm.addEventListener("click", (e) => {
@@ -385,7 +397,6 @@ function addWork() {
         body: formData,
         }).then(function (response) {
             if (response.status === 201) {
-                rModal();
                 run2();
             }
             else if (response.status === 401) {
@@ -395,12 +406,15 @@ function addWork() {
         })
     });  
 }
+//permet d'afficher une * et un message d'erreur si il manque un champ
 function required() {
     let inputs = document.getElementsByClassName("inputs");
     let starImg = document.getElementById("starImg");
     let errorImg = document.getElementById("error-img");
     let starTitle = document.getElementById("starTitle");
     let errorTitle = document.getElementById("error-title");
+    let starCat = document.getElementById("starCat");
+    let errorCat = document.getElementById("error-cat");
 
                 for(let input of inputs) {
 
@@ -426,6 +440,14 @@ function required() {
                             }
                             break;
                         case "category":
+                             if (input.value == "") {
+                                starCat.style.display = "inline";
+                                errorCat.style.display = "block";
+                            }
+                            else {
+                                starCat.style.display = "none";
+                                errorCat.style.display = "none";
+                            }
                             break;
                         default:
                             console.log("Sorry");
@@ -440,7 +462,7 @@ const run2 = async()=>{
     var works = await getWorks();
     var categories = await getCategories();
     renderWorks(works,0,"modal-gallery");
-    isItLogged(works, categories);
+    renderMainOrEdit(works, categories);
     trashButton();
     allTrash();
 }    
