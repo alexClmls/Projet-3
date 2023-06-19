@@ -12,11 +12,12 @@ submit.addEventListener("click", (e) => {
    const password = document.getElementById("password").value;
    //si un des champs n'est pas rempli, renvoie un message d'erreur
    if (!email || !password) {
-       errorInformation.innerHTML = "Entrer un identifiant ou un mot de passe valide.";
-       errorInformation.style.display = "block";
-       return;
+      errorInformation.innerHTML = "Entrer un identifiant ou un mot de passe valide";
+      errorInformation.style.display = "block";
+      return;
    }
-   //envoie de la requete fetch
+   else {
+      //envoie de la requete fetch
    fetch("http://localhost:5678/api/users/login", {
          method: "POST",
          headers: {
@@ -30,7 +31,7 @@ submit.addEventListener("click", (e) => {
       if (authResponse.status === 200) {
          return authResponse.json();
       } else {
-         errorInformation.innerHTML = "Erreur dans l'identifiant ou le mot de passe.";
+         errorInformation.innerHTML = "Erreur dans l'identifiant ou le mot de passe";
          errorInformation.style.display = "block";
          return Promise.reject();
         }
@@ -43,7 +44,7 @@ submit.addEventListener("click", (e) => {
       }
    })
    .catch(error => console.error(error));
-       
+   }
 });
 
 

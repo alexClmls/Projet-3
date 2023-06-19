@@ -143,7 +143,6 @@ function trashButton() {
 
                 }).then(function (response) {
                         if (response.status === 204) {
-                            figures.innerHTML = "";
                             run2();                        
                         }
                         else {
@@ -175,7 +174,6 @@ function allTrash() {
 
                 }).then(function (response) {
                         if (response.status === 204) {
-                            figures.innerHTML = "";
                             run2();                        
                         }
                         else {
@@ -256,7 +254,7 @@ function addForm() {
 
         let errorImg = document.createElement("p");
         errorImg.id = "error-img";
-        errorImg.innerText = "Veuillez ajouter une image."
+        errorImg.innerText = "Veuillez ajouter une image"
         errorImg.className = "error-msg";
 
         const pLabel = document.createElement("p");
@@ -292,7 +290,7 @@ function addForm() {
 
         let errorTitle = document.createElement("p");
         errorTitle.id = "error-title";
-        errorTitle.innerText = "Veuillez renseigner un titre."
+        errorTitle.innerText = "Veuillez renseigner un titre"
         errorTitle.className = "error-msg";
 
         const titleInput = document.createElement("input");
@@ -312,7 +310,7 @@ function addForm() {
 
         let errorCat = document.createElement("p");
         errorCat.id = "error-cat";
-        errorCat.innerText = "Veuillez choisir une catégorie."
+        errorCat.innerText = "Veuillez choisir une catégorie"
         errorCat.className = "error-msg";
 
         const catSelect = document.createElement("select");
